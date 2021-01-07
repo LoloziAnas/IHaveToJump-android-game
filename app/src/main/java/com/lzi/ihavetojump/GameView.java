@@ -3,7 +3,11 @@ package com.lzi.ihavetojump;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class GameView extends SurfaceView implements Runnable {
@@ -13,8 +17,18 @@ public class GameView extends SurfaceView implements Runnable {
     volatile boolean isPlaying;
     private Thread gameThread = null;
 
+    private Player player;
+    private Paint paint;
+    private Canvas canvas;
+    private SurfaceHolder surfaceHolder;
+
     public GameView(Context context) {
         super(context);
+        //Initializing player object
+        player = new Player(context);
+        //Initializing surfaceHolder object
+        surfaceHolder = getHolder();
+        paint = new Paint();
     }
 
 
@@ -32,8 +46,20 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        player.update();
     }
     private void draw() {
+        //Checking if the surface is valid
+        if (surfaceHolder.getSurface().isValid()){
+            //locking the canvas
+            canvas = surfaceHolder.lockCanvas();
+            //Drawing a black color for canvas
+            canvas.drawColor(Color.BLACK);
+            //Drawing the player
+            canvas.drawBitmap(player.getBitmap(),player.getX(),player.getY(),paint);
+            //Unlocking the canvas
+            surfaceHolder.unlockCanvasAndPost(canvas);
+        }
     }
     private  void control() {
         try {
