@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IHaveToJump</string>
+    <string name="high_score">High score :</string>
+    <string name="play">PLAY</string>
+    <string name="i_have_to_fly">I HAVE TO FLY</string>
+    <string name="background">background</string>
 </resources>

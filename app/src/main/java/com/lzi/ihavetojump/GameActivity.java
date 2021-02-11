@@ -1,23 +1,23 @@
 package com.lzi.ihavetojump;
 
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
-
     private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Initialising gameView object
-        gameView = new GameView(this);
-
-        //setting the gameView object to ContentView
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        gameView = new GameView(this, size.x, size.y);
         setContentView(gameView);
-
     }
 
     @Override
@@ -31,4 +31,5 @@ public class GameActivity extends AppCompatActivity {
         super.onResume();
         gameView.resume();
     }
+
 }
